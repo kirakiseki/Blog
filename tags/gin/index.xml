@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Gin on Ishirai's Blog</title><link>https://ishirai.com/tags/gin/</link><description>Recent content in Gin on Ishirai's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Ishirai CC-BY-NC 4.0</copyright><lastBuildDate>Sat, 14 Jan 2023 00:03:32 +0800</lastBuildDate><atom:link href="https://ishirai.com/tags/gin/index.xml" rel="self" type="application/rss+xml"/><item><title>Gin 快速上手</title><link>https://ishirai.com/posts/gin-introduction/</link><pubDate>Sat, 14 Jan 2023 00:03:32 +0800</pubDate><guid>https://ishirai.com/posts/gin-introduction/</guid><description>0x00 安装 go get -u github.com/gin-gonic/gin # Install Gin 0x01 快速开始 创建服务器 func main(){ ginServer := gin.Default() _ = ginServer.Run(&amp;#34;:8080&amp;#34;) } gin.Default()使用默认设置定义服务器，使用server.Run(&amp;quot;:8080&amp;quot;)来指定运行的端口。
+server.Run函数原型:
+func (engine *Engine) Run(addr ...string) (err error)
+使用:8080传入addr ...string指定端口。返回的err非致命，不处理也行。
+如何处理error：
+err := ginServer.Run(&amp;#34;:8080&amp;#34;) if err != nil { return } 第一个服务 // GET /hello ginServer.GET(&amp;#34;/hello&amp;#34;, func(context *gin.Context) { context.JSON(http.StatusOK, gin.H{&amp;#34;msg&amp;#34;: &amp;#34;hello world&amp;#34;}) }) 定义服务的方法：
+server.METHOD(path string, handler ...gin.HandlerFunc)，此处的handler接收一个*gin.Context参数对象，其中包含请求内容等。在handler中，使用传入的context参数做对应的请求Request解析及响应Response。
+使用ctx.JSON响应一个JSON对象。函数原型:
+func (c *Context) JSON(code int, obj any)
+在JSON函数中实现响应操作，返回内容为状态码为code，以及序列化为JSON后的obj。</description></item></channel></rss>

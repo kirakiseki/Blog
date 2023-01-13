@@ -1,4 +1,258 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ishirai's Blog</title><link>https://ishirai.com/</link><description>Recent content on Ishirai's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Ishirai CC-BY-NC 4.0</copyright><lastBuildDate>Sun, 18 Mar 2018 12:13:38 +0530</lastBuildDate><atom:link href="https://ishirai.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Typography - Test for features</title><link>https://ishirai.com/posts/post-5/</link><pubDate>Sun, 18 Mar 2018 12:13:38 +0530</pubDate><guid>https://ishirai.com/posts/post-5/</guid><description>Ishirai's Blog https://ishirai.com/posts/post-5/ -&lt;p>Lid est laborum et dolorum fuga. Et harum quidem rerum facilis est et expeditasi distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihilse impedit quo minus id quod amets untra dolor amet sad. Sed ut perspser iciatis unde omnis iste natus error sit voluptatem accusantium doloremque laste. Dolores sadips ipsums sits.&lt;/p>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ishirai's Blog</title><link>https://ishirai.com/</link><description>Recent content on Ishirai's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Ishirai CC-BY-NC 4.0</copyright><lastBuildDate>Sat, 14 Jan 2023 00:03:32 +0800</lastBuildDate><atom:link href="https://ishirai.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Gin 快速上手</title><link>https://ishirai.com/posts/gin-introduction/</link><pubDate>Sat, 14 Jan 2023 00:03:32 +0800</pubDate><guid>https://ishirai.com/posts/gin-introduction/</guid><description>Ishirai's Blog https://ishirai.com/posts/gin-introduction/ -&lt;h1 id="0x00-安装">0x00 安装&lt;/h1>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#abb2bf;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>go get -u github.com/gin-gonic/gin &lt;span style="color:#7f848e"># Install Gin&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="0x01-快速开始">0x01 快速开始&lt;/h1>
+&lt;h2 id="创建服务器">创建服务器&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#abb2bf;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c678dd">func&lt;/span> &lt;span style="color:#61afef;font-weight:bold">main&lt;/span>(){
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">ginServer&lt;/span> &lt;span style="color:#56b6c2">:=&lt;/span> &lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">Default&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">_&lt;/span> = &lt;span style="color:#e06c75">ginServer&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">Run&lt;/span>(&lt;span style="color:#98c379">&amp;#34;:8080&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>gin.Default()&lt;/code>使用默认设置定义服务器，使用&lt;code>server.Run(&amp;quot;:8080&amp;quot;)&lt;/code>来指定运行的端口。&lt;/p>
+&lt;p>&lt;code>server.Run&lt;/code>函数原型:&lt;/p>
+&lt;p>&lt;code>func (engine *Engine) Run(addr ...string) (err error)&lt;/code>&lt;/p>
+&lt;p>使用&lt;code>:8080&lt;/code>传入&lt;code>addr ...string&lt;/code>指定端口。返回的err非致命，不处理也行。&lt;/p>
+&lt;p>如何处理error：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#abb2bf;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e06c75">err&lt;/span> &lt;span style="color:#56b6c2">:=&lt;/span> &lt;span style="color:#e06c75">ginServer&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">Run&lt;/span>(&lt;span style="color:#98c379">&amp;#34;:8080&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c678dd">if&lt;/span> &lt;span style="color:#e06c75">err&lt;/span> &lt;span style="color:#56b6c2">!=&lt;/span> &lt;span style="color:#e5c07b">nil&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">return&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="第一个服务">第一个服务&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#abb2bf;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">// GET /hello
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">&lt;/span>&lt;span style="color:#e06c75">ginServer&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">GET&lt;/span>(&lt;span style="color:#98c379">&amp;#34;/hello&amp;#34;&lt;/span>, &lt;span style="color:#c678dd">func&lt;/span>(&lt;span style="color:#e06c75">context&lt;/span> &lt;span style="color:#56b6c2">*&lt;/span>&lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">Context&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">JSON&lt;/span>(&lt;span style="color:#e06c75">http&lt;/span>.&lt;span style="color:#e06c75">StatusOK&lt;/span>, &lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">H&lt;/span>{&lt;span style="color:#98c379">&amp;#34;msg&amp;#34;&lt;/span>: &lt;span style="color:#98c379">&amp;#34;hello world&amp;#34;&lt;/span>})
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>})
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>定义服务的方法：&lt;/p>
+&lt;p>&lt;code>server.METHOD(path string, handler ...gin.HandlerFunc)&lt;/code>，此处的handler接收一个&lt;code>*gin.Context&lt;/code>参数对象，其中包含请求内容等。在handler中，使用传入的context参数做对应的请求Request解析及响应Response。&lt;/p>
+&lt;p>使用&lt;code>ctx.JSON&lt;/code>响应一个JSON对象。函数原型:&lt;/p>
+&lt;p>&lt;code>func (c *Context) JSON(code int, obj any)&lt;/code>&lt;/p>
+&lt;p>在JSON函数中实现响应操作，返回内容为状态码为code，以及序列化为JSON后的obj。&lt;/p>
+&lt;p>状态码可直接写int字面量，也可以使用内置常量&lt;code>http.Status*&lt;/code>（使用const实现）&lt;/p>
+&lt;p>&lt;img src="https://ishirai.com/Users/ishirai/b/blog-source/content/posts/gin-introduction/img/image-20230114001217883.png" alt="image-20230114001217883">&lt;/p>
+&lt;h1 id="0x02-服务方式">0x02 服务方式&lt;/h1>
+&lt;h2 id="restful-api">RESTful API&lt;/h2>
+&lt;p>RESTful API使用不同的HTTP请求方式进行相应内容的隔离，不同的请求方式对应不同handler进行处理。&lt;/p>
+&lt;p>常见的HTTP请求方式：&lt;/p>
+&lt;ul>
+&lt;li>GET&lt;/li>
+&lt;li>POST&lt;/li>
+&lt;li>PUT&lt;/li>
+&lt;li>DELETE&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#abb2bf;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">// RESTful API
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">// Use GET/POST/PUT/DELETE to isolate operations
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">&lt;/span>&lt;span style="color:#e06c75">ginServer&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">GET&lt;/span>(&lt;span style="color:#98c379">&amp;#34;/hello&amp;#34;&lt;/span>, &lt;span style="color:#c678dd">func&lt;/span>(&lt;span style="color:#e06c75">context&lt;/span> &lt;span style="color:#56b6c2">*&lt;/span>&lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">Context&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">JSON&lt;/span>(&lt;span style="color:#e06c75">http&lt;/span>.&lt;span style="color:#e06c75">StatusOK&lt;/span>, &lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">H&lt;/span>{&lt;span style="color:#98c379">&amp;#34;msg&amp;#34;&lt;/span>: &lt;span style="color:#98c379">&amp;#34;GET /hello&amp;#34;&lt;/span>})
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>})
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e06c75">ginServer&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">POST&lt;/span>(&lt;span style="color:#98c379">&amp;#34;/hello&amp;#34;&lt;/span>, &lt;span style="color:#c678dd">func&lt;/span>(&lt;span style="color:#e06c75">c&lt;/span> &lt;span style="color:#56b6c2">*&lt;/span>&lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">Context&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">c&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">JSON&lt;/span>(&lt;span style="color:#e06c75">http&lt;/span>.&lt;span style="color:#e06c75">StatusOK&lt;/span>, &lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">H&lt;/span>{&lt;span style="color:#98c379">&amp;#34;msg&amp;#34;&lt;/span>: &lt;span style="color:#98c379">&amp;#34;POST /hello&amp;#34;&lt;/span>})
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>})
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="返回静态页面">返回静态页面&lt;/h2>
+&lt;p>加载模板HTML文件：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>使用通配符进行对文件夹下所有HTML全局加载&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#abb2bf;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e06c75">ginServer&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">LoadHTMLGlob&lt;/span>(&lt;span style="color:#98c379">&amp;#34;./resources/*&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在参数中给出相对路径即可&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>显性写出文件名，单个文件加载&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#abb2bf;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e06c75">ginServer&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">LoadHTMLFiles&lt;/span>(&lt;span style="color:#98c379">&amp;#34;./resources/index.html&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>参数中需要显式写出所有需要加载的HTML文件的文件名。函数接收的参数为&lt;code>(files ...string)&lt;/code>，接收不定长度参数，可以同时传入多个文件进行处理：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#abb2bf;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e06c75">ginServer&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">LoadHTMLFiles&lt;/span>(&lt;span style="color:#98c379">&amp;#34;./resources/index1.html&amp;#34;&lt;/span>,&lt;span style="color:#98c379">&amp;#34;./resources/index2.html&amp;#34;&lt;/span>,&lt;span style="color:#98c379">&amp;#34;./resources/index3.html&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>为什么之前说是“模板”HTML？&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>可以在返回静态页面时，向页面动态传递数据，类似php/jsp的行为。&lt;/li>
+&lt;/ul>
+&lt;p>向HTML传递参数：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#abb2bf;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">// GET /index
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">&lt;/span>&lt;span style="color:#e06c75">ginServer&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">GET&lt;/span>(&lt;span style="color:#98c379">&amp;#34;/index&amp;#34;&lt;/span>, &lt;span style="color:#c678dd">func&lt;/span>(&lt;span style="color:#e06c75">c&lt;/span> &lt;span style="color:#56b6c2">*&lt;/span>&lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">Context&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">c&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">HTML&lt;/span>(&lt;span style="color:#e06c75">http&lt;/span>.&lt;span style="color:#e06c75">StatusOK&lt;/span>, &lt;span style="color:#98c379">&amp;#34;index.html&amp;#34;&lt;/span>, &lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">H&lt;/span>{&lt;span style="color:#98c379">&amp;#34;title&amp;#34;&lt;/span>: &lt;span style="color:#98c379">&amp;#34;Value of title&amp;#34;&lt;/span>})
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>})
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>使用&lt;code>ctx.HTML(code int, name string, obj any)&lt;/code>返回数据。Gin的HTML Renderer会将obj类型在HTML中进行预渲染。&lt;/p>
+&lt;p>这里使用了一个自定义类型&lt;code>gin.H&lt;/code>，为&lt;code>map[string]any&lt;/code>的别名，可以存储k-v键值对，用来存储序列化数据如JSON等。&lt;/p>
+&lt;p>如果不需要传输数据的时候，参数值赋&lt;code>nil&lt;/code>。&lt;/p>
+&lt;p>在HTML文件中使用模板语句传递参数。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#abb2bf;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-html" data-lang="html">&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">head&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;&lt;span style="color:#e06c75">meta&lt;/span> &lt;span style="color:#e06c75">charset&lt;/span>&lt;span style="color:#56b6c2">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;UTF-8&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;&lt;span style="color:#e06c75">title&lt;/span>&amp;gt;{{.title}}&amp;lt;/&lt;span style="color:#e06c75">title&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;&lt;span style="color:#e06c75">link&lt;/span> &lt;span style="color:#e06c75">rel&lt;/span>&lt;span style="color:#56b6c2">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;stylesheet&amp;#34;&lt;/span> &lt;span style="color:#e06c75">href&lt;/span>&lt;span style="color:#56b6c2">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;res/style.css&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;&lt;span style="color:#e06c75">script&lt;/span> &lt;span style="color:#e06c75">src&lt;/span>&lt;span style="color:#56b6c2">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;res/common.js&amp;#34;&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#e06c75">script&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;/&lt;span style="color:#e06c75">head&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中，&lt;code>{{.title}}&lt;/code>会在预渲染阶段替换为传递的&lt;code>gin.H{&amp;quot;title&amp;quot;: &amp;quot;Value of title&amp;quot;}&lt;/code>的内容，&lt;/p>
+&lt;p>渲染结果：&lt;/p>
+&lt;p>&lt;img src="https://ishirai.com/img/gin-production/image-20230113223500344.png" alt="image-20230113223500344">&lt;/p>
+&lt;p>加载HTML中的静态文件：&lt;/p>
+&lt;p>使用Gin对外提供服务时，需要解析静态文件并做路径的转化。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#abb2bf;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">// Load Resources File
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">&lt;/span>&lt;span style="color:#e06c75">ginServer&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">Static&lt;/span>(&lt;span style="color:#98c379">&amp;#34;/res&amp;#34;&lt;/span>, &lt;span style="color:#98c379">&amp;#34;./resources&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Static函数原型：&lt;/p>
+&lt;p>&lt;code>func (group *RouterGroup) Static(relativePath, root string) IRoutes&lt;/code>&lt;/p>
+&lt;p>可见，Static函数将root绝对路径转化为相对程序的relativePath，Gin到相对程序的relativePath去寻找静态文件。&lt;/p>
+&lt;p>程序目录结构如下：&lt;/p>
+&lt;p>&lt;img src="https://ishirai.com/img/gin-production/image-20230113223900563.png" alt="image-20230113223900563">&lt;/p>
+&lt;p>Gin将文件路径&lt;code>./resources&lt;/code>转化为网页中&lt;code>res/&lt;/code>并对外提供服务。&lt;/p>
+&lt;h1 id="0x03-参数传递">0x03 参数传递&lt;/h1>
+&lt;h2 id="问号传参">问号传参&lt;/h2>
+&lt;p>问号传参使用的方式为&lt;code>GET&lt;/code>方式的请求，请求格式为&lt;code>http://addr:port/interface?param1=xxx&amp;amp;param2=xxx&lt;/code>，使用&lt;code>?&lt;/code>传入第一个参数，随后的参数使用&lt;code>&amp;amp;&lt;/code>进行拼接。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#abb2bf;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">// 1. Use ? and &amp;amp; to pass params
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">&lt;/span>&lt;span style="color:#e06c75">ginServer&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">GET&lt;/span>(&lt;span style="color:#98c379">&amp;#34;/user/info&amp;#34;&lt;/span>, &lt;span style="color:#c678dd">func&lt;/span>(&lt;span style="color:#e06c75">context&lt;/span> &lt;span style="color:#56b6c2">*&lt;/span>&lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">Context&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">userid&lt;/span> &lt;span style="color:#56b6c2">:=&lt;/span> &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">Query&lt;/span>(&lt;span style="color:#98c379">&amp;#34;userid&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">username&lt;/span> &lt;span style="color:#56b6c2">:=&lt;/span> &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">Query&lt;/span>(&lt;span style="color:#98c379">&amp;#34;username&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">JSON&lt;/span>(&lt;span style="color:#e06c75">http&lt;/span>.&lt;span style="color:#e06c75">StatusOK&lt;/span>, &lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">H&lt;/span>{&lt;span style="color:#98c379">&amp;#34;userid&amp;#34;&lt;/span>: &lt;span style="color:#e06c75">userid&lt;/span>, &lt;span style="color:#98c379">&amp;#34;username&amp;#34;&lt;/span>: &lt;span style="color:#e06c75">username&lt;/span>})
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>})
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>使用&lt;code>ctx.Query&lt;/code>解析传入的请求地址中的参数。&lt;/p>
+&lt;h2 id="restful-api-1">RESTful API&lt;/h2>
+&lt;p>RESTful API传入参数的方式为直接使用&lt;code>/&lt;/code>分割。如接口&lt;code>/user/info/:username/:userid&lt;/code>在请求时就是&lt;code>/user/info/testuser/114514&lt;/code>。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#abb2bf;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">// 2. RESTful /user/info/:username/:userid
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">&lt;/span>&lt;span style="color:#e06c75">ginServer&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">GET&lt;/span>(&lt;span style="color:#98c379">&amp;#34;/user/info/:username/:userid&amp;#34;&lt;/span>, &lt;span style="color:#c678dd">func&lt;/span>(&lt;span style="color:#e06c75">context&lt;/span> &lt;span style="color:#56b6c2">*&lt;/span>&lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">Context&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">username&lt;/span> &lt;span style="color:#56b6c2">:=&lt;/span> &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">Param&lt;/span>(&lt;span style="color:#98c379">&amp;#34;username&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">userid&lt;/span> &lt;span style="color:#56b6c2">:=&lt;/span> &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">Param&lt;/span>(&lt;span style="color:#98c379">&amp;#34;userid&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">JSON&lt;/span>(&lt;span style="color:#e06c75">http&lt;/span>.&lt;span style="color:#e06c75">StatusOK&lt;/span>, &lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">H&lt;/span>{&lt;span style="color:#98c379">&amp;#34;userid&amp;#34;&lt;/span>: &lt;span style="color:#e06c75">userid&lt;/span>, &lt;span style="color:#98c379">&amp;#34;username&amp;#34;&lt;/span>: &lt;span style="color:#e06c75">username&lt;/span>})
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>})
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在创建解析RESTful API的接口时，使用&lt;code>:param&lt;/code>作为占位，标定&lt;code>param&lt;/code>在请求地址中的位置。使用&lt;code>ctx.Param&lt;/code>解析传入的参数。&lt;/p>
+&lt;h2 id="序列化对象">序列化对象&lt;/h2>
+&lt;p>在前后端分离的项目中，常用的模式是前后端之间使用JSON进行数据的交换。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#abb2bf;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">// 3. Serialized params (pass JSON to backend)
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">&lt;/span>&lt;span style="color:#e06c75">ginServer&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">POST&lt;/span>(&lt;span style="color:#98c379">&amp;#34;/user/info&amp;#34;&lt;/span>, &lt;span style="color:#c678dd">func&lt;/span>(&lt;span style="color:#e06c75">context&lt;/span> &lt;span style="color:#56b6c2">*&lt;/span>&lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">Context&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#7f848e">// return byte[],err
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">&lt;/span> &lt;span style="color:#e06c75">data&lt;/span>, &lt;span style="color:#e06c75">_&lt;/span> &lt;span style="color:#56b6c2">:=&lt;/span> &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">GetRawData&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#7f848e">// same as map[string]interface{}/map[string]any
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">&lt;/span> &lt;span style="color:#c678dd">var&lt;/span> &lt;span style="color:#e06c75">m&lt;/span> &lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">H&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#7f848e">// Parse JSON to map
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">&lt;/span> &lt;span style="color:#e06c75">_&lt;/span> = &lt;span style="color:#e06c75">json&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">Unmarshal&lt;/span>(&lt;span style="color:#e06c75">data&lt;/span>, &lt;span style="color:#56b6c2">&amp;amp;&lt;/span>&lt;span style="color:#e06c75">m&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">JSON&lt;/span>(&lt;span style="color:#e06c75">http&lt;/span>.&lt;span style="color:#e06c75">StatusOK&lt;/span>, &lt;span style="color:#e06c75">m&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>})
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>由于是已经序列化的对象，只能使用&lt;code>ctx.GetRawData()&lt;/code>获取到切片格式&lt;code>byte[]&lt;/code>。&lt;/p>
+&lt;p>后续再用内置的json方法&lt;code>json.Unmarshal()&lt;/code>将切片转回Go对象的内置格式&lt;/p>
+&lt;p>函数原型：&lt;code>func Unmarshal(data []byte, v any) error&lt;/code>&lt;/p>
+&lt;p>函数接受切片data，以及指针v，反序列化后的内容存储在v中。&lt;/p>
+&lt;p>如果v不为指针或为&lt;code>nil&lt;/code>，抛出&lt;code>InvalidUnmarshalError&lt;/code>的Exception。&lt;/p>
+&lt;p>这里仍然使用&lt;code>map[string]any&lt;/code>，即&lt;code>map[k]v&lt;/code>，用来承接JSON转化为内置对象后的键值对格式。&lt;/p>
+&lt;h2 id="post表单">POST表单&lt;/h2>
+&lt;p>前端通过表单格式向后端发送表单格式的数据，也可以使用Gin进行处理&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#abb2bf;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">// 4. Form params
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">&lt;/span>&lt;span style="color:#e06c75">ginServer&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">POST&lt;/span>(&lt;span style="color:#98c379">&amp;#34;/user/form&amp;#34;&lt;/span>, &lt;span style="color:#c678dd">func&lt;/span>(&lt;span style="color:#e06c75">context&lt;/span> &lt;span style="color:#56b6c2">*&lt;/span>&lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">Context&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">username&lt;/span> &lt;span style="color:#56b6c2">:=&lt;/span> &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">PostForm&lt;/span>(&lt;span style="color:#98c379">&amp;#34;name&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">age&lt;/span> &lt;span style="color:#56b6c2">:=&lt;/span> &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">PostForm&lt;/span>(&lt;span style="color:#98c379">&amp;#34;age&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">JSON&lt;/span>(&lt;span style="color:#e06c75">http&lt;/span>.&lt;span style="color:#e06c75">StatusOK&lt;/span>, &lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">H&lt;/span>{&lt;span style="color:#98c379">&amp;#34;name&amp;#34;&lt;/span>: &lt;span style="color:#e06c75">username&lt;/span>, &lt;span style="color:#98c379">&amp;#34;age&amp;#34;&lt;/span>: &lt;span style="color:#e06c75">age&lt;/span>})
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>})
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>HTML的表单设计：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#abb2bf;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-html" data-lang="html">&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#e06c75">form&lt;/span> &lt;span style="color:#e06c75">action&lt;/span>&lt;span style="color:#56b6c2">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;/user/form&amp;#34;&lt;/span> &lt;span style="color:#e06c75">method&lt;/span>&lt;span style="color:#56b6c2">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;post&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;&lt;span style="color:#e06c75">label&lt;/span>&amp;gt;Name&amp;lt;/&lt;span style="color:#e06c75">label&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;&lt;span style="color:#e06c75">input&lt;/span> &lt;span style="color:#e06c75">type&lt;/span>&lt;span style="color:#56b6c2">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;text&amp;#34;&lt;/span> &lt;span style="color:#e06c75">name&lt;/span>&lt;span style="color:#56b6c2">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;name&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;&lt;span style="color:#e06c75">label&lt;/span>&amp;gt;Age&amp;lt;/&lt;span style="color:#e06c75">label&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;&lt;span style="color:#e06c75">input&lt;/span> &lt;span style="color:#e06c75">type&lt;/span>&lt;span style="color:#56b6c2">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;number&amp;#34;&lt;/span> &lt;span style="color:#e06c75">name&lt;/span>&lt;span style="color:#56b6c2">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;age&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;&lt;span style="color:#e06c75">input&lt;/span> &lt;span style="color:#e06c75">type&lt;/span>&lt;span style="color:#56b6c2">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;submit&amp;#34;&lt;/span> &lt;span style="color:#e06c75">value&lt;/span>&lt;span style="color:#56b6c2">=&lt;/span>&lt;span style="color:#98c379">&amp;#34;Submit&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;/&lt;span style="color:#e06c75">form&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>元素使用&lt;code>name&lt;/code>属性进行标记，在Gin的处理中使用&lt;code>ctx.PostForm&lt;/code>解析。&lt;/p>
+&lt;h1 id="0x04-重定向">0x04 重定向&lt;/h1>
+&lt;p>使用301/302对请求进行重定向。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#abb2bf;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e06c75">ginServer&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">GET&lt;/span>(&lt;span style="color:#98c379">&amp;#34;/test&amp;#34;&lt;/span>, &lt;span style="color:#c678dd">func&lt;/span>(&lt;span style="color:#e06c75">context&lt;/span> &lt;span style="color:#56b6c2">*&lt;/span>&lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">Context&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#7f848e">// Redirect
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">&lt;/span> &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">Redirect&lt;/span>(&lt;span style="color:#e06c75">http&lt;/span>.&lt;span style="color:#e06c75">StatusMovedPermanently&lt;/span>, &lt;span style="color:#98c379">&amp;#34;https://ishirai.com&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>})
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>为了实现跳转功能，HTTP状态码这里设置为&lt;code>301 Moved Permanently&lt;/code>。跳转由浏览器实现，当浏览器请求到301状态码时，浏览器自动跟随跳转到下一个页面。&lt;/p>
+&lt;h1 id="0x05-404页面">0x05 404页面&lt;/h1>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#abb2bf;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">// 404
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">&lt;/span>&lt;span style="color:#e06c75">ginServer&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">NoRoute&lt;/span>(&lt;span style="color:#c678dd">func&lt;/span>(&lt;span style="color:#e06c75">context&lt;/span> &lt;span style="color:#56b6c2">*&lt;/span>&lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">Context&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">HTML&lt;/span>(&lt;span style="color:#e06c75">http&lt;/span>.&lt;span style="color:#e06c75">StatusNotFound&lt;/span>, &lt;span style="color:#98c379">&amp;#34;404.html&amp;#34;&lt;/span>, &lt;span style="color:#e5c07b">nil&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>})
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>使用&lt;code>server.NoRoute&lt;/code>对没有目标路由的页面做统一操作。这里是以404状态码返回了404页面，也可以在这里做一些其他的操作。&lt;/p>
+&lt;h1 id="0x06-路由组">0x06 路由组&lt;/h1>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#abb2bf;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e06c75">userGroup&lt;/span> &lt;span style="color:#56b6c2">:=&lt;/span> &lt;span style="color:#e06c75">ginServer&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">Group&lt;/span>(&lt;span style="color:#98c379">&amp;#34;/user&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">userGroup&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">GET&lt;/span>(&lt;span style="color:#98c379">&amp;#34;/add&amp;#34;&lt;/span>, &lt;span style="color:#61afef;font-weight:bold">myMiddleware&lt;/span>(), &lt;span style="color:#c678dd">func&lt;/span>(&lt;span style="color:#e06c75">context&lt;/span> &lt;span style="color:#56b6c2">*&lt;/span>&lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">Context&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">JSON&lt;/span>(&lt;span style="color:#e06c75">http&lt;/span>.&lt;span style="color:#e06c75">StatusOK&lt;/span>, &lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">H&lt;/span>{&lt;span style="color:#98c379">&amp;#34;msg&amp;#34;&lt;/span>: &lt;span style="color:#98c379">&amp;#34;add&amp;#34;&lt;/span>})
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> })
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>使用&lt;code>server.Group(path)&lt;/code>创建路由组，在路由组中创建的路由，会自动与路由组的&lt;code>path&lt;/code>路径进行拼接。如上的路由最终请求地址就是&lt;code>/user/add&lt;/code>。&lt;/p>
+&lt;h1 id="0x07-中间件">0x07 中间件&lt;/h1>
+&lt;p>Gin中的中间件和Java中的拦截器功能类似，用于在请求到达最终响应的handler之前，做一些预处理工作。比如设置全局变量，用户鉴权等工作。&lt;/p>
+&lt;p>Gin中的自定义中间件为&lt;code>gin.HandlerFunc&lt;/code>类型，其原型为&lt;code>func(*Context)&lt;/code>。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#abb2bf;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">// Middleware
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">// Clousure
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">&lt;/span>&lt;span style="color:#c678dd">func&lt;/span> &lt;span style="color:#61afef;font-weight:bold">myMiddleware&lt;/span>() &lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">HandlerFunc&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">return&lt;/span> &lt;span style="color:#c678dd">func&lt;/span>(&lt;span style="color:#e06c75">context&lt;/span> &lt;span style="color:#56b6c2">*&lt;/span>&lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">Context&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">log&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">Println&lt;/span>(&lt;span style="color:#98c379">&amp;#34;myMiddleware1,ctx====&amp;gt;&amp;#34;&lt;/span>, &lt;span style="color:#e06c75">context&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#7f848e">// Set global variable in middleware context
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">&lt;/span> &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">Set&lt;/span>(&lt;span style="color:#98c379">&amp;#34;key&amp;#34;&lt;/span>, &lt;span style="color:#98c379">&amp;#34;value&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">Next&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">// Direct
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">&lt;/span>&lt;span style="color:#c678dd">func&lt;/span> &lt;span style="color:#61afef;font-weight:bold">myMiddleware2&lt;/span>(&lt;span style="color:#e06c75">context&lt;/span> &lt;span style="color:#56b6c2">*&lt;/span>&lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">Context&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">log&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">Println&lt;/span>(&lt;span style="color:#98c379">&amp;#34;myMiddleware2,ctx====&amp;gt;&amp;#34;&lt;/span>, &lt;span style="color:#e06c75">context&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#7f848e">// Set global variable in middleware context
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">&lt;/span> &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">Set&lt;/span>(&lt;span style="color:#98c379">&amp;#34;key&amp;#34;&lt;/span>, &lt;span style="color:#98c379">&amp;#34;value&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">Next&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>中间件可以采用闭包的形式，返回一个函数，如&lt;code>myMiddleware&lt;/code>的实现。或者直接定义&lt;code>gin.HandlerFunc&lt;/code>类型的函数都可以实现。&lt;/p>
+&lt;p>闭包形式的写法，可以看出函数的类型为&lt;code>HandlerFunc&lt;/code>，而直接定义看不出函数类型，且闭包写法可以使用闭包的特性。&lt;/p>
+&lt;p>针对使用中间件的范围，有三种写法：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>仅在当前的路由中使用中间件&lt;/p>
+&lt;p>&lt;code>server.METHOD(&amp;quot;/path&amp;quot;, myMiddleware1(), ...handlers HandlerFunc)&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#abb2bf;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">// Closure
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">&lt;/span>&lt;span style="color:#e06c75">ginServer&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">GET&lt;/span>(&lt;span style="color:#98c379">&amp;#34;/test&amp;#34;&lt;/span>, &lt;span style="color:#61afef;font-weight:bold">myMiddleware1&lt;/span>() ,&lt;span style="color:#c678dd">func&lt;/span>(&lt;span style="color:#e06c75">context&lt;/span> &lt;span style="color:#56b6c2">*&lt;/span>&lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">Context&lt;/span>) {&lt;span style="color:#56b6c2">...&lt;/span>})
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">// Direct
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">&lt;/span>&lt;span style="color:#e06c75">ginServer&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">GET&lt;/span>(&lt;span style="color:#98c379">&amp;#34;/test&amp;#34;&lt;/span>, &lt;span style="color:#e06c75">myMiddleware1&lt;/span> ,&lt;span style="color:#c678dd">func&lt;/span>(&lt;span style="color:#e06c75">context&lt;/span> &lt;span style="color:#56b6c2">*&lt;/span>&lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">Context&lt;/span>) {&lt;span style="color:#56b6c2">...&lt;/span>})
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>在当前路由组中使用中间件&lt;/p>
+&lt;p>在定义路由组的时候，将中间件作为参数传入。&lt;/p>
+&lt;p>&lt;code>server.Group(&amp;quot;/path&amp;quot;, myMiddleware1()){...Handlers}&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>全局使用中间件&lt;/p>
+&lt;p>&lt;code>server.Use(myMiddleware())&lt;/code>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>在中间件中，可以使用&lt;code>ctx.Set(k,v)&lt;/code>设置全局变量，经过中间件设置的全局变量，在后续的处理中也是可见的。可以使用&lt;code>ctx.Get(k)&lt;/code>获取到键值对的值v。也可以用&lt;code>ctx.MustGet(k)&lt;/code>，当key不存在时，产生panic。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#abb2bf;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e06c75">userGroup&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">GET&lt;/span>(&lt;span style="color:#98c379">&amp;#34;/add&amp;#34;&lt;/span>, &lt;span style="color:#61afef;font-weight:bold">myMiddleware1&lt;/span>(), &lt;span style="color:#c678dd">func&lt;/span>(&lt;span style="color:#e06c75">context&lt;/span> &lt;span style="color:#56b6c2">*&lt;/span>&lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">Context&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#7f848e">// Print global variable in log
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">&lt;/span> &lt;span style="color:#e06c75">log&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">Println&lt;/span>(&lt;span style="color:#98c379">&amp;#34;key:=====&amp;gt;&amp;#34;&lt;/span>, &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">MustGet&lt;/span>(&lt;span style="color:#98c379">&amp;#34;key&amp;#34;&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">JSON&lt;/span>(&lt;span style="color:#e06c75">http&lt;/span>.&lt;span style="color:#e06c75">StatusOK&lt;/span>, &lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">H&lt;/span>{&lt;span style="color:#98c379">&amp;#34;msg&amp;#34;&lt;/span>: &lt;span style="color:#98c379">&amp;#34;add&amp;#34;&lt;/span>, &lt;span style="color:#98c379">&amp;#34;key&amp;#34;&lt;/span>: &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">MustGet&lt;/span>(&lt;span style="color:#98c379">&amp;#34;key&amp;#34;&lt;/span>)})
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>})
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在中间件中可以进行流程控制。&lt;/p>
+&lt;p>使用&lt;code>ctx.Next()&lt;/code>可以执行下一个handler，下一个handler执行后，再返回此处继续执行剩下的代码，可以用来做&lt;code>post-run&lt;/code>的操作。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#abb2bf;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">// Middleware
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">&lt;/span>&lt;span style="color:#c678dd">func&lt;/span> &lt;span style="color:#61afef;font-weight:bold">myMiddleware&lt;/span>() &lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">HandlerFunc&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">return&lt;/span> &lt;span style="color:#c678dd">func&lt;/span>(&lt;span style="color:#e06c75">context&lt;/span> &lt;span style="color:#56b6c2">*&lt;/span>&lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">Context&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#7f848e">// Set global variable in middleware context
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">&lt;/span> &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">Set&lt;/span>(&lt;span style="color:#98c379">&amp;#34;key&amp;#34;&lt;/span>, &lt;span style="color:#98c379">&amp;#34;value&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">log&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">Println&lt;/span>(&lt;span style="color:#98c379">&amp;#34;before&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">Next&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">log&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">Println&lt;/span>(&lt;span style="color:#98c379">&amp;#34;after&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e06c75">userGroup&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">GET&lt;/span>(&lt;span style="color:#98c379">&amp;#34;/add&amp;#34;&lt;/span>, &lt;span style="color:#61afef;font-weight:bold">myMiddleware&lt;/span>(), &lt;span style="color:#c678dd">func&lt;/span>(&lt;span style="color:#e06c75">context&lt;/span> &lt;span style="color:#56b6c2">*&lt;/span>&lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">Context&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#7f848e">// Print global variable in log
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">&lt;/span> &lt;span style="color:#e06c75">log&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">Println&lt;/span>(&lt;span style="color:#98c379">&amp;#34;next handler&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">JSON&lt;/span>(&lt;span style="color:#e06c75">http&lt;/span>.&lt;span style="color:#e06c75">StatusOK&lt;/span>, &lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">H&lt;/span>{&lt;span style="color:#98c379">&amp;#34;msg&amp;#34;&lt;/span>: &lt;span style="color:#98c379">&amp;#34;add&amp;#34;&lt;/span>, &lt;span style="color:#98c379">&amp;#34;key&amp;#34;&lt;/span>: &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">MustGet&lt;/span>(&lt;span style="color:#98c379">&amp;#34;key&amp;#34;&lt;/span>)})
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>})
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://ishirai.com/img/gin-production/image-20230113234430327.png" alt="image-20230113234430327">&lt;/p>
+&lt;p>使用&lt;code>ctx.Abort()&lt;/code>可以中断操作。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#abb2bf;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">// Middleware
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">&lt;/span>&lt;span style="color:#c678dd">func&lt;/span> &lt;span style="color:#61afef;font-weight:bold">myMiddleware&lt;/span>() &lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">HandlerFunc&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c678dd">return&lt;/span> &lt;span style="color:#c678dd">func&lt;/span>(&lt;span style="color:#e06c75">context&lt;/span> &lt;span style="color:#56b6c2">*&lt;/span>&lt;span style="color:#e06c75">gin&lt;/span>.&lt;span style="color:#e06c75">Context&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#7f848e">// Set global variable in middleware context
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#7f848e">&lt;/span> &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">Set&lt;/span>(&lt;span style="color:#98c379">&amp;#34;key&amp;#34;&lt;/span>, &lt;span style="color:#98c379">&amp;#34;value&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">log&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">Println&lt;/span>(&lt;span style="color:#98c379">&amp;#34;before&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">context&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">Abort&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e06c75">log&lt;/span>.&lt;span style="color:#61afef;font-weight:bold">Println&lt;/span>(&lt;span style="color:#98c379">&amp;#34;after&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://ishirai.com/img/gin-production/image-20230113234545704.png" alt="image-20230113234545704">&lt;/p>
+&lt;p>对于可以进行嵌套的链式操作，使用&lt;code>ctx.Abort()&lt;/code>可以跳过后续handler的执行，直接执行Abort后的函数语句。&lt;/p>
+&lt;p>关于&lt;code>ctx.Abort()&lt;/code>的变种，还有&lt;code>ctx.Abort()/ctx.AbortWithStatus()/ctx.AbortWithStatusJSON()&lt;/code>等。可以实现带返回值的Abort和Abort后同时有返回值和JSON消息等操作。&lt;/p>
+- https://ishirai.com/posts/gin-introduction/ - Ishirai CC-BY-NC 4.0</description></item><item><title>Typography - Test for features</title><link>https://ishirai.com/posts/post-5/</link><pubDate>Sun, 18 Mar 2018 12:13:38 +0530</pubDate><guid>https://ishirai.com/posts/post-5/</guid><description>Ishirai's Blog https://ishirai.com/posts/post-5/ -&lt;p>Lid est laborum et dolorum fuga. Et harum quidem rerum facilis est et expeditasi distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihilse impedit quo minus id quod amets untra dolor amet sad. Sed ut perspser iciatis unde omnis iste natus error sit voluptatem accusantium doloremque laste. Dolores sadips ipsums sits.&lt;/p>
 &lt;h1 id="heading-1">Heading 1&lt;/h1>
 &lt;p>Lid est laborum et dolorum fuga. Et harum quidem rerum facilis est et expeditasi distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihilse impedit quo minus id quod amets untra dolor amet sad. Sed ut perspser iciatis unde omnis iste natus error sit voluptatem accusantium doloremque laste. Dolores sadips ipsums sits.&lt;/p>
 &lt;h2 id="heading-2">Heading 2&lt;/h2>
