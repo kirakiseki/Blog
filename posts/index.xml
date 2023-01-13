@@ -7,5 +7,4 @@ err := ginServer.Run(&amp;#34;:8080&amp;#34;) if err != nil { return } 第一个
 server.METHOD(path string, handler ...gin.HandlerFunc)，此处的handler接收一个*gin.Context参数对象，其中包含请求内容等。在handler中，使用传入的context参数做对应的请求Request解析及响应Response。
 使用ctx.JSON响应一个JSON对象。函数原型:
 func (c *Context) JSON(code int, obj any)
-在JSON函数中实现响应操作，返回内容为状态码为code，以及序列化为JSON后的obj。</description></item><item><title>Typography - Test for features</title><link>https://ishirai.com/posts/post-5/</link><pubDate>Sun, 18 Mar 2018 12:13:38 +0530</pubDate><guid>https://ishirai.com/posts/post-5/</guid><description>Lid est laborum et dolorum fuga. Et harum quidem rerum facilis est et expeditasi distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihilse impedit quo minus id quod amets untra dolor amet sad. Sed ut perspser iciatis unde omnis iste natus error sit voluptatem accusantium doloremque laste. Dolores sadips ipsums sits.
-Heading 1 Lid est laborum et dolorum fuga. Et harum quidem rerum facilis est et expeditasi distinctio.</description></item></channel></rss>
+在JSON函数中实现响应操作，返回内容为状态码为code，以及序列化为JSON后的obj。</description></item></channel></rss>
